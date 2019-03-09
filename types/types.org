@@ -1,0 +1,36 @@
+* [[file:~/data-relational-mapping/main-flow.org][Data Relational Mapping]]
+
+* Types
+
+** Rules and assumptions
+
+   * Types are intended to handle database level concerns
+     * Managing relationships
+     * Serialize/deserialize
+
+** Interface Definition
+
+   #+BEGIN_SRC python :tangle interface.py
+     # not sure imports belong in here for literate reasons, seems like the
+     # tangler should round them up and put them at the top of a tangled file
+     from abc import abstractmethod
+
+
+     class Type:
+         @abstractmethod
+         def serialize(value):
+             pass
+
+         @abstractmethod
+         def deserialize(value):
+             pass
+
+         @abstractmethod
+         def query_prepare(value, args):
+             pass
+   #+END_SRC
+
+*** TODO Provide an abstract class here that callers can implement (actually, this needs to happen before any of the types are created)
+
+** [[file:default-types.org][Default Types]]
+** [[file:extending-types.org][Extending Types]]
