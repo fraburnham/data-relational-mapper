@@ -1,0 +1,34 @@
+* [[file:./../main-flow.org][Data Relational Mapping]]
+
+* Queries
+
+** Rules and assumptions
+
+   * Queries must be composable. That is a user should be able to (merge-query a b) and have a single result.
+     * needing a custom merge fn is acceptable for now
+   * Query syntax should be vaguely familiar to anyone who knows graphql
+
+** Examples
+
+   #+BEGIN_SRC python
+     {
+         "myModel": [
+             "id", "created", {"user-id": {"fields": ["id" "name"]}}
+         ]
+     }
+   #+END_SRC
+
+   This query would generate a sql map like the below.
+
+   #+BEGIN_SRC python
+     {
+         "select": [
+             {"model": "myModel", "fields": ["id", "created"]},
+             {"model": "users", "fields": ["id", "name"]}
+         ],
+         "join": [{
+             "model": "users",
+             "on": {"myModel": "user-id", "users": "id"}
+         }]
+     }
+   #+END_SRC

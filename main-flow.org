@@ -24,3 +24,4 @@
 ** [[file:model-definitions.org][Model Definitions]]
 ** [[file:validators.org][Validators]]
 ** [[file:types/types.org][Types]]
+** [[file:./queries/queries.org][Queries]]
