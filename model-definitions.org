@@ -1,0 +1,53 @@
+* [[file:main-flow.org][Data Relational Mapping]]
+
+* Model Definitions
+
+** Rules and assumptions
+
+   * A model's definition must only depend on the field types and any validators. These constraints should prevent any need for circular dependancies in the models themselves.
+   * A type (or fn) that implements a known interface is used as the `:type` value. This allows custom type behavior (like implementing new relationships or serializing types
+     to something suitable for the database). (N.B.: Types may require an interface or map of fns to implement a default validator/options selector)
+   * Each field may have only one validator function that receives the value of that field.
+   * Each model may have only one validator function that receives the values of the model.
+   * Validators do not mutate or transform. They only approve or deny values.
+   * Models must be registered in some way so the DRM can find the data.
+   * A model may specify the behavior of it's fk children upon it's deletion (perhaps also on update?) via the chosen fk type.
+
+** Examples
+
+*** TODO The `tos_check` can't be written until there is more known about the query map structure and sql generation flow
+   
+   #+NAME: model-with-fk
+   #+BEGIN_SRC python
+     def tos_check(query_map):
+         pass
+
+     def max_length(maximum):
+         return lambda x: len(x) > maximum
+
+     myModel = {
+         "model": "myModel",
+         "validator": tos_check,
+         "fields": {
+             "id": {
+                 "name": "id",
+                 "type": Integer
+             }
+             "name": {
+                 "name": "name",
+                 "type": String,
+                 "validator": max_length(100)
+             }
+             "user-id": {
+                 "name": "user-id",
+                 "type": OneToOne,  # None of the types are defined yet
+                 "model": user  # since this is data these args will vary based on what the type wants
+             }
+             "tos": {
+                 "name": "tos",
+                 "type": Boolean
+             }
+         }
+     }
+
+   #+END_SRC
