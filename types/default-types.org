@@ -19,16 +19,17 @@
          def deserialize(value):
              pass
 
-         def query_prepare(value, args):
+         def query_prepare(value):
              # this is where things start to get interesting
              # with the given model setup I want types to be able to enforce fks
              # perhaps a context or something to hide some details should be passed
              # perhaps the data should just be basically raw...
+             # It may be best to get to this once I have a more concrete engine plan...
              pass
    #+END_SRC
 
 ** TODO String
-   
+
    #+BEGIN_SRC python :tangle defaults.py
      class String(Type):
          def serialize(value):
