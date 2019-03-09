@@ -31,8 +31,9 @@
              }
              "user-id": {
                  "name": "user-id",
-                 "type": OneToOne,  # None of the types are defined yet
-                 "model": user  # since this is data these args will vary based on what the type wants
+                 "type": OneToOne,
+                 "model": "user",
+                 "foreign-key": "id"
              }
              "tos": {
                  "name": "tos",
