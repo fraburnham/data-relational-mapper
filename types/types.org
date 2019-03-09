@@ -7,6 +7,7 @@
    * Types are intended to handle database level concerns
      * Managing relationships
      * Serialize/deserialize
+     * Prepare query map fragments
 
 ** Interface Definition
 
@@ -30,7 +31,5 @@
              pass
    #+END_SRC
 
-*** TODO Provide an abstract class here that callers can implement (actually, this needs to happen before any of the types are created)
-
 ** [[file:default-types.org][Default Types]]
-** [[file:extending-types.org][Extending Types]]
+** TODO [[file:extending-types.org][Extending Types]]
