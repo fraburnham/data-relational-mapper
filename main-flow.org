@@ -1,0 +1,24 @@
+* Data Relational Mapping
+
+** Objective
+   
+   To experiment with an alternative to Object Relational Mapping. On the surface this appears to be a desireable goal because data can be more flexible/composable. 
+   It also encourages keeping functionality away from the models themselves. This should allow the models to more accurately represent their domain without being 
+   directly aware of real world circumstances. 
+   
+   It is possible this pattern could be used to address the circular dependencies issue in graphene (more cleanly than it is now). It is also possible that only a 
+   small translation layer would be needed to get from graphql to a db query.
+   
+   Language used to implement isn't important, really. I'd prefer a language w/ interfaces. However, I suspect this pattern has the best chance of showing strenghts 
+   in a dynamic language. So the critical choice may be around simplicity of describing the models.
+   
+   Being able to describe models in something close to json could allow for sharing of details in fat client situations. Having the option could create clients with 
+   fat and thin portions.
+   
+** (Mostly) Arbitrary choices
+   
+  * The default should be to query as little as possible. This prevents users from relying on things they aren't asking for.
+  * `:*` should still be a valid field identifier in a select
+  * The flow of the sql engine should be very easy to understand so that it is easy to see how it can be extended.
+
+** [[file:model-definitions.org][Model Definitions]]
