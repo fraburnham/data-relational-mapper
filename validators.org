@@ -1,0 +1,23 @@
+* [[file:main-flow.org][Data Relational Mapping]]
+
+* Validators
+
+** Rules and assumptions
+
+   * A validator receives as little as it can to validate
+     * For a field validator this means a value
+     * For a model validator this means the model
+   * Maintaining relationships is not a validators responsibility
+
+** Examples
+   
+   #+BEGIN_SRC python
+     def tos_check(query_map):
+         pass
+
+     def max_length(maximum):
+         return lambda x: len(x) > maximum
+
+   #+END_SRC
+
+*** TODO The `tos_check` can't be written until there is more known about the query map structure and sql generation flow
