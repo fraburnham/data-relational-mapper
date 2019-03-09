@@ -25,3 +25,8 @@
 ** [[file:validators.org][Validators]]
 ** [[file:types/types.org][Types]]
 ** [[file:./queries/queries.org][Queries]]
+
+*** Useful definitions
+
+    * Query map/dict: The map/dict a user of the library will supply to be turned into a sql map
+    * Sql map/dict: The map/dict intended to be serialized into a prepared statement or query
