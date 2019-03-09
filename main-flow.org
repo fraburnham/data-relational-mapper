@@ -1,5 +1,8 @@
 * Data Relational Mapping
 
+*** TODO Set up hooks to tangle and blacken the code
+*** TODO figure out how to get black to run on the popup buffers from babel
+
 ** Objective
    
    To experiment with an alternative to Object Relational Mapping. On the surface this appears to be a desireable goal because data can be more flexible/composable. 
@@ -22,10 +25,12 @@
   * The flow of the sql engine should be very easy to understand so that it is easy to see how it can be extended.
 
 ** [[file:model-definitions.org][Model Definitions]]
+*** TODO Model registration
 ** [[file:validators.org][Validators]]
 ** [[file:types/types.org][Types]]
 ** [[file:./queries/queries.org][Queries]]
 ** [[file:./sql/dict-generation.org][Sql Dictionary Generation]]
+** TODO [[file:sql/dict-serialization.org][Sql Dictionary Serialization]]
 
 *** Useful definitions
 
