@@ -15,9 +15,6 @@
 
 ** Examples
 
-*** TODO The `tos_check` can't be written until there is more known about the query map structure and sql generation flow
-*** TODO Both validator functions should be imported from a validators example because they aren't meant to live with the model definition
-   
    #+NAME: model-with-fk
    #+BEGIN_SRC python
      def tos_check(query_map):
@@ -52,3 +49,6 @@
      }
 
    #+END_SRC
+
+*** TODO The `tos_check` can't be written until there is more known about the query map structure and sql generation flow
+*** TODO Both validator functions should be imported from a validators example because they aren't meant to live with the model definition
