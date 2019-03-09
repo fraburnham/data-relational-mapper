@@ -1,0 +1,82 @@
+* [[file:./../main-flow.org][Data Relational Mapping]]
+
+* Sql Dictionary Generation
+
+** Rules and assumptions
+
+   * Query dicts must adhere to their rules and assumptions
+
+** Flow
+
+   Assume all steps are fail fast unless otherwise noted
+
+   [[file:./../queries/queries.org::*Examples][Sample query]]
+
+   1. Verify the model has been registered
+   2. Validate that all the fields are found on the model
+   3. Walk the fields calling the types to prepare their needs
+      1. The prep fns will be passed:
+	 1. Their field from the model
+	 2. Their field from the query
+	 3. ?
+   4. The above should result in a map like
+      #+BEGIN_SRC python
+        {
+            "select": [{
+                "model": "myModel",
+                "fields": [
+                    "id",
+                    "created",
+                    {
+                        "select": {[
+                            "model": "user",
+                            "fields": ["id", "name"]
+                        ]},
+                        "join": [{
+                            "model": "user",
+                            "on": {
+                                "myModel": "user-id",
+                                "user": "id"
+                                # TODO: this means I need to fix the query structure. Oops
+                            }
+                        }]
+                    }
+                ]
+            }],
+                
+      #+END_SRC
+   5. This map needs to be reduced into the map below. Then it is ready to be serialized into a sql query.
+      #+BEGIN_SRC python
+        {
+            "select": [
+                {
+                    "model": "myModel",
+                    "fields": ["id", "created"]
+                },
+                {
+                    "model": "users",
+                    "fields": ["id", "name"]
+                }
+            ],
+            "join": [{
+                "model": "users",
+                "on": {
+                    "myModel": "user-id", "users": "id"
+                }
+            }]
+        }
+
+      #+END_SRC
+
+** TODO Verify registration
+   
+   This should be pretty direct once registration is handled. Depending on how that looks a change to the models may be in order.
+
+** TODO Validate fields
+
+** TODO Call the types for query prep
+
+   This will involve checking the actual data type in the query to determine if args are passed or not.
+   In either case there should be a standard format that the type fns can get.
+
+** TODO Reduce map

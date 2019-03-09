@@ -25,6 +25,7 @@
 ** [[file:validators.org][Validators]]
 ** [[file:types/types.org][Types]]
 ** [[file:./queries/queries.org][Queries]]
+** [[file:./sql/dict-generation.org][Sql Dictionary Generation]]
 
 *** Useful definitions
 
