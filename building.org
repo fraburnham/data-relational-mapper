@@ -1,0 +1,82 @@
+* [[file:main-flow.org][Data Relational Mapping]]
+
+* Building
+
+** Tools
+
+   * Emacs
+     * Org
+     * Babel
+     * Elpy
+       * NB: This isn't in use until I can make it work w/ buffers instead of files. Or some such workaround.
+   * Python 3.6
+
+*** TODO Wrap tools up in a docker container so tangling is possible w/o emacs installed locally.
+** Black
+*** TODO Black should be pretty easy
+** Tangle
+
+*** Project tangler
+
+    Tangling is the process of building usable source code files from the literate org files. Org/babel handle this, so all that is needed
+    is some tooling to ensure it happens to all of the source files.
+
+    The tangle function should ask for the project's root so it can find and tangle all org files.
+    Then recursively find and tangle org files.
+
+    [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Using-Interactive.html][`interactive` docs]]
+
+    The interactive form uses "D" before the prompt to specify that the argument should be a directory.
+    (see [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Interactive-Codes.html#Interactive-Codes][Interactive Codes]])
+    Every prompt's (separated by a newline) value will be passed to the interactive fn.
+
+    #+NAME: interactive-form
+    #+BEGIN_SRC elisp
+      (interactive "DProject root: ")
+    #+END_SRC
+
+    From the project root use `directory-files-recurisvely` to find all org files that need tangling.
+
+    #+NAME: tangle-directory
+    #+BEGIN_SRC elisp
+      (defun tangle-directory (dir)
+	(let ((files (directory-files-recursively (expand-file-name dir) "^+*\.org")))
+	  (dolist (file files)
+	    (org-babel-tangle-file file))))
+    #+END_SRC
+
+    This is provided as the interactive function `tangle-project`.
+
+    #+BEGIN_SRC elisp :tangle build-helpers.el :noweb yes
+      <<tangle-directory>>
+
+      (defun tangle-project (project-root)
+	<<interactive-form>>
+	(message "Tangling project: %s" project-root)
+	(tangle-directory project-root))
+    #+END_SRC
+    
+    This can be used from within emacs by `M-x tangle-project` after the code is eval'd or loaded via init.
+
+    To use from the command line
+
+    #+NAME: command-line-tangle
+    #+BEGIN_SRC sh
+      emacs -q -nw -l build-helpers.el --eval '(tangle-project "./")' --kill
+    #+END_SRC
+
+*** Tangle on save in emacs
+
+    I should be able to use an org mode after save hook to tangle files.
+    
+    [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Setting-Hooks.html][Elisp add-hook docs]]
+
+    #+BEGIN_SRC elisp :tangle build-helpers.el
+      (add-hook 'org-mode-hook
+		(lambda ()
+		  (add-hook 'after-save-hook 'org-babel-tangle nil 'local)))
+    #+END_SRC
+
+    This adds a hook whenever org mode is started to tangle after save; keeping the codebase up to date.
+
+

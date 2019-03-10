@@ -47,9 +47,9 @@
    The first step to sql generation. Preparing the query map. At this level `types` are the extension point.
 
 ** TODO [[file:sql/dict-serialization.org][Sql Dictionary Serialization]]
-** TODO Building
+** [[file:building.org][Building]]
 
-   Elaborate on the literate style choice. Make note of difficulties and advantages.
+*** TODO   Elaborate on the literate style choice. Make note of difficulties and advantages.
 
 ** Useful definitions
 
