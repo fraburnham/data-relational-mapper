@@ -14,7 +14,16 @@
 
 *** TODO Wrap tools up in a docker container so tangling is possible w/o emacs installed locally.
 ** Black
-*** TODO Black should be pretty easy
+
+   Black provides consistent code formatting. This should help keep the generated code more readable.
+
+   #+NAME: blacken
+   #+BEGIN_SRC sh
+     black --exclude venv **/*.py
+   #+END_SRC
+
+*** TODO Blacken in the popup buffers for emacs
+
 ** Tangle
 
 *** Project tangler
