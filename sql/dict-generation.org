@@ -79,9 +79,27 @@
 
       #+END_SRC
 
-** TODO Verify registration
+** Verify registration
    
-   This should be pretty direct once registration is handled. Depending on how that looks a change to the models may be in order.
+   Verifying registration is a matter of checking for the model's name in the registry's keys.
+
+   #+BEGIN_SRC python :tangle dict_generator.py
+     def verify_model_registered(registry, model):
+         return model in registry
+   #+END_SRC
+
+   However, to make queries composable this logic needs to be applied to all top level keys in the query.
+
+   #+BEGIN_SRC python :tangle dict_generator.py
+     def verify_models_registered(registry, query):
+         for model in query.keys():
+             if not verify_model_registered(registry, model):
+                 return False
+
+         return True
+   #+END_SRC
+
+*** TODO Write tests at this level, too. It will help to describe the code and the tools can put the tests in the right places
 
 ** TODO Validate fields
 
