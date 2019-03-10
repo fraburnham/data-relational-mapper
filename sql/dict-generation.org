@@ -2,9 +2,18 @@
 
 * Sql Dictionary Generation
 
+** TODO All this assumes selects simplicity sake in the short term.
+
+   My suspicion is maps will be flexible enough to make insert/delete work. Perhaps a type on the query map somewhere.
+   It would be nice to allow a select and an insert in a single sql query map. Graphql doesn't, though. Probably due
+   to potential inconsistency issues. I'm inclined to leave those up to the developer. Maybe that is shitty.
+
 ** Rules and assumptions
 
    * Query dicts must adhere to their rules and assumptions
+   * Models being queried must be registered
+   * Queries may not request fields that aren't registered to a model
+   * Multiple models may exist at the top level in a query map
 
 ** Flow
 
