@@ -21,18 +21,37 @@
 ** (Mostly) Arbitrary choices
    
   * The default should be to query as little as possible. This prevents users from relying on things they aren't asking for.
-  * `:*` should still be a valid field identifier in a select
+  * `*` should still be a valid field identifier in a select
   * The flow of the sql engine should be very easy to understand so that it is easy to see how it can be extended.
+  * There should be little reason to extend the sql engine
 
 ** [[file:model-definitions.org][Model Definitions]]
+
+   Models definitions are data so they can be flexible and to discourage mixing model and behavior.
+
 *** TODO Model registration
 ** [[file:validators.org][Validators]]
-** [[file:types/types.org][Types]]
-** [[file:./queries/queries.org][Queries]]
-** [[file:./sql/dict-generation.org][Sql Dictionary Generation]]
-** TODO [[file:sql/dict-serialization.org][Sql Dictionary Serialization]]
 
-*** Useful definitions
+   Validators are simple, boolean functions that determine if a query will be built.
+
+** [[file:types/types.org][Types]]
+
+   Types are the flexible heart of the query building process. They're responsible for returning maps that describe their part of the query.
+
+** [[file:./queries/queries.org][Queries]]
+
+   Simple dictionary based queries intended to resemble graphql.
+
+** [[file:./sql/dict-generation.org][Sql Dictionary Generation]]
+
+   The first step to sql generation. Preparing the query map. At this level `types` are the extension point.
+
+** TODO [[file:sql/dict-serialization.org][Sql Dictionary Serialization]]
+** TODO Building
+
+   Elaborate on the literate style choice. Make note of difficulties and advantages.
+
+** Useful definitions
 
     * Query map/dict: The map/dict a user of the library will supply to be turned into a sql map
     * Sql map/dict: The map/dict intended to be serialized into a prepared statement or query
