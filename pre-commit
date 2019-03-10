@@ -1,7 +1,7 @@
 
 #!/bin/bash -e
 
-emacs -q -nw --script build-helpers.el --eval '(tangle-project "./")' --kill
+emacs -q --script build-helpers.el --eval '(tangle-project "./")'
 black --exclude venv **/*.py
 
 # need to commit the changed files

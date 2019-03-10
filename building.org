@@ -69,7 +69,7 @@
 
     #+NAME: command-line-tangle
     #+BEGIN_SRC sh
-      emacs -q -nw --script build-helpers.el --eval '(tangle-project "./")' --kill
+      emacs -q --script build-helpers.el --eval '(tangle-project "./")'
     #+END_SRC
 
 *** Tangle on save in emacs
