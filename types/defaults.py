@@ -1,5 +1,5 @@
-
 from .interface import Type
+
 
 class Integer(Type):
     def serialize(value):
@@ -14,6 +14,7 @@ class Integer(Type):
         # perhaps a context or something to hide some details should be passed
         # perhaps the data should just be basically raw...
         pass
+
 
 class String(Type):
     def serialize(value):

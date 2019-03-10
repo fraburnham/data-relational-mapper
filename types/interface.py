@@ -1,4 +1,3 @@
-
 # not sure imports belong in here for literate reasons, seems like the
 # tangler should round them up and put them at the top of a tangled file
 from abc import abstractmethod
