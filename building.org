@@ -5,9 +5,10 @@
 ** Tools
 
    * Emacs
-     * Org
-     * Babel
-     * Elpy
+     * org-mode
+     * babel
+     * python-mode
+     * elpy
        * NB: This isn't in use until I can make it work w/ buffers instead of files. Or some such workaround.
    * Python 3.6
 
