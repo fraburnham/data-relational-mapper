@@ -14,12 +14,14 @@
 
    1. Verify the model has been registered
    2. Validate that all the fields are found on the model
-   3. Walk the fields calling the types to prepare their needs
+   3. Call the validators for each field
+   4. Call the model validator
+   5. Walk the fields calling the types to prepare their needs
       1. The prep fns will be passed:
 	 1. Their field from the model
 	 2. Their field from the query
 	 3. ?
-   4. The above should result in a map like
+   6. The above should result in a map like
       #+BEGIN_SRC python
         {
             "select": [{
@@ -45,7 +47,7 @@
             }],
                 
       #+END_SRC
-   5. This map needs to be reduced into the map below. Then it is ready to be serialized into a sql query.
+   7. This map needs to be reduced into the map below. Then it is ready to be serialized into a sql query.
       #+BEGIN_SRC python
         {
             "select": [
@@ -73,6 +75,12 @@
    This should be pretty direct once registration is handled. Depending on how that looks a change to the models may be in order.
 
 ** TODO Validate fields
+
+   This seems like a simple walk over the query and check in the fields.
+
+** TODO Call validators
+
+   Another loop, I think. However, I'll need to account for increasing depths.
 
 ** TODO Call the types for query prep
 
