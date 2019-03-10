@@ -12,17 +12,78 @@
    * Validators do not mutate or transform. They only approve or deny values.
    * Models must be registered in some way so the DRM can find the data.
    * A model may specify the behavior of it's fk children upon it's deletion (perhaps also on update?) via the chosen fk type.
+   * A model's name must be unique
 
 ** Registering
 
-   Registering should only require the user to pass the model dict to a fn. The fn can store the information somewhere. Perhaps a closure? An object is more typical.
+   Registering only requires the user to pass the models to a fn as a list of models or a single models dict. The models are stored as a closure.
    It wouldn't be an issue to store the models in an object for persistance, but it would be no different to return an object w/ the data vs a closure.
 
-*** TODO Describe process to register a model
+   NB: Model registration is *not* additive
+
+   Below is the format of the registry map. Users may provide models in this format.
+
+   #+BEGIN_SRC python
+     {
+         "myModel": {
+             "validator": tos_check,
+             "fields": {
+                 "id": {
+                     "name": "id",
+                     "type": Integer
+                 }
+                 "name": {
+                     "name": "name",
+                     "type": String,
+                     "validator": max_length(100)
+                 }
+                 "user-id": {
+                     "name": "user-id",
+                     "type": OneToOne,
+                     "model": "user",
+                     "foreign-key": "id"
+                 }
+                 "tos": {
+                     "name": "tos",
+                     "type": Boolean
+                 }
+             }
+         },
+         #"users": {...}
+     }
+   #+END_SRC
+
+   Registration is achieved by calling `models.register_models` with a list or dict of models. You will get an entrypoint to the query engine in response. This _should_ allow
+   for isolated models if/when it is sensible to have them. (Models that can't be related to the drm because they're not in the same models dict)
+
+   #+BEGIN_SRC python :tangle models.py
+     from functools import singledispatch
+
+     # this fn may not belong in here
+     def __query_engine_factory(models):
+         return lambda query_map: print(query_map)
+
+     @singledispatch
+     def register_models(models):
+         raise Exception("query_engine_factory not implemented for {}".format(type(models)))
+
+     @register_models.register(list)
+     def register_models_list(models):
+         model_dict = {}
+         for model in models:
+             # this seems like there must be a better, more pythonic way
+             model_dict = {**model_dict, **model}
+
+     @register_models.register(dict)
+     def register_models_dict(models):
+         return __query_engine_factory(models)
+   #+END_SRC
 
 ** Examples
 
    #+BEGIN_SRC python
+     from models import register_models
+
      myModel = {
          "model": "myModel",
          "validator": tos_check,
@@ -49,4 +110,5 @@
          }
      }
 
+     query_engine = register_models(myModel)
    #+END_SRC
