@@ -13,6 +13,13 @@
    * Models must be registered in some way so the DRM can find the data.
    * A model may specify the behavior of it's fk children upon it's deletion (perhaps also on update?) via the chosen fk type.
 
+** Registering
+
+   Registering should only require the user to pass the model dict to a fn. The fn can store the information somewhere. Perhaps a closure? An object is more typical.
+   It wouldn't be an issue to store the models in an object for persistance, but it would be no different to return an object w/ the data vs a closure.
+
+*** TODO Describe process to register a model
+
 ** Examples
 
    #+BEGIN_SRC python
@@ -43,5 +50,3 @@
      }
 
    #+END_SRC
-
-*** TODO Both validator functions should be imported from a validators example because they aren't meant to live with the model definition
