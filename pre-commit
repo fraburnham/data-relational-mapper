@@ -1,0 +1,8 @@
+
+#!/bin/bash -e
+
+emacs -q -nw -l build-helpers.el --eval '(tangle-project "./")' --kill
+black --exclude venv **/*.py
+
+# need to commit the changed files
+# would be nice to have file outputs...

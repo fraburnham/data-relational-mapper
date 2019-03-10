@@ -90,3 +90,23 @@
     This adds a hook whenever org mode is started to tangle after save; keeping the codebase up to date.
 
 
+** Git Hooks
+
+   Using git hooks ensures that the org files are always tangled and the output blackened on commit. Allowing modifying of the
+   documentation/code to generate the usable code base.
+
+   #+BEGIN_SRC sh :tangle pre-commit :noweb yes
+     #!/bin/bash -e
+
+     <<command-line-tangle>>
+     <<blacken>>
+
+     # need to commit the changed files
+     # would be nice to have file outputs...
+   #+END_SRC
+
+   The hook can be installed with
+
+   #+BEGIN_SRC sh
+     chmod a+x pre-commit && ln pre-commit .git/hooks/pre-commit
+   #+END_SRC
